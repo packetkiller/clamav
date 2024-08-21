@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dockerfile": {
+    "enabled": false
+  },
+  "gitlabci-include": {
+    "enabled": false
+  },
+  "gitlabci": {
+    "enabled": false
+  },
+  "regexManagers": [
+    {
+      "fileMatch": ["\\.gitlab-ci\\.ya?ml$"],
+      "matchStrings": [
+        "DEEP_CI_IMAGE_TAG: [\"']?(?<currentValue>.+?)[\"']?\\s+"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "Cisco-Talos/clamav",
+      "extractVersionTemplate": "^clamav-(?<version>.*)$"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["github-releases"],
+      "matchDepNames": ["Cisco-Talos/clamav"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true
+    },
+    {
+      "matchDatasources": ["docker"],
+      "automerge": true
+    }
+  ]
+}
